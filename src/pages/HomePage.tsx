@@ -1,10 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'motion/react';
 import { Button } from '../components/ui/button';
 import { ProjectCard } from '../components/ProjectCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { featuredProjects } from '../data/projects';
-import { Users, Heart, Zap } from 'lucide-react';
 import Peep34 from '../imports/Peep34';
 import Peep16 from '../imports/Peep16';
 import Peep85 from '../imports/Peep85';
@@ -13,33 +12,29 @@ interface HomePageProps {
   onNavigate: (page: string, projectId?: string) => void;
 }
 
-// Assign cover images to featured projects
+// Assign cover images to featured projects – exactly 3
 const projectsWithImages = featuredProjects.map((project, index) => {
   const images = [
-    'https://images.unsplash.com/photo-1742813615188-7ea3c64fb880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb3Zlcm5tZW50JTIwZGlnaXRhbCUyMHNlcnZpY2V8ZW58MXx8fHwxNzYwMjk4MjY1fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    'https://images.unsplash.com/photo-1703007739223-3e87d56e03e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncm9jZXJ5JTIwc2hvcHBpbmclMjBtb2JpbGV8ZW58MXx8fHwxNzYwMzQ5ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    'https://images.unsplash.com/photo-1661187259792-d0e16bf86d31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnN0YWdyYW0lMjBzb2NpYWwlMjBtZWRpYXxlbnwxfHx8fDE3NjAzMjQ1MTN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    'https://images.unsplash.com/photo-1742813615188-7ea3c64fb880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    'https://images.unsplash.com/photo-1703007739223-3e87d56e03e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
+    'https://images.unsplash.com/photo-1661187259792-d0e16bf86d31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=1080',
   ];
   return { ...project, coverImage: images[index] };
 });
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }
-};
-
 export function HomePage({ onNavigate }: HomePageProps) {
   const projectsRef = useRef(null);
-  const projectsInView = useInView(projectsRef, { once: true, margin: "-100px" });
+  const projectsInView = useInView(projectsRef, { once: true, margin: '-100px' });
 
   return (
-    <>
     <div className="min-h-screen">
       {/* Hero Section - Asymmetric Layout */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-accent/5 via-background to-accent-light/5" style={{ paddingTop: '140px', paddingBottom: '80px' }}>
+      <section
+        className="relative overflow-hidden bg-gradient-to-br from-accent/5 via-background to-accent-light/5"
+        style={{ paddingTop: '140px', paddingBottom: '80px' }}
+      >
         <div className="max-content-width px-6 md:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Text Content */}
             <div className="lg:col-span-7 space-y-6">
               {/* Label */}
@@ -49,7 +44,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 transition={{ duration: 0.4 }}
               >
                 <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-[12px] text-caption font-medium border border-primary/20">
-                  👋 Available for new opportunities
+                  👋 Product designer blending gov UX, gamer focus &amp; a bit of anime energy
                 </span>
               </motion.div>
 
@@ -60,23 +55,26 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <h1 className="text-display leading-[1.1]">
-                  <span className="text-primary">Designing</span> experiences <br/>
-                  people actually <span className="italic">enjoy</span> using.
+                  I bring order to government-style chaos <br />
+                  with the focus of a gamer and the optimism of an anime protagonist.
                 </h1>
               </motion.div>
-              
+
               {/* Subheading */}
-              <motion.p 
+              <motion.p
                 className="text-lead text-muted-foreground max-w-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                Visual & product designer from Bangalore. Currently making government services accessible at Centre for e-Governance.
+                I&apos;m a visual &amp; product designer from Bangalore. Right now at the Centre for
+                e-Governance, I turn dense government workflows into quieter, clearer interfaces
+                that everyday people can move through without feeling like they&apos;re fighting a
+                boss battle.
               </motion.p>
-              
+
               {/* CTA Buttons */}
-              <motion.div 
+              <motion.div
                 className="flex flex-wrap gap-4 pt-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -87,42 +85,36 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   size="lg"
                   className="shadow-lg shadow-primary/20"
                 >
-                  Explore my work →
+                  See how I clean up chaos →
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() => onNavigate('contact')}
-                >
-                  Let's chat
+                <Button variant="outline" size="lg" onClick={() => onNavigate('contact')}>
+                  Talk about your product
                 </Button>
               </motion.div>
             </div>
-            
-            {/* Hero Image - Creative Treatment */}
-            <motion.div 
+
+            {/* Hero Image */}
+            <motion.div
               className="lg:col-span-5 relative"
               initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
             >
               <div className="relative">
-                {/* Decorative accent blob */}
-                <div className="absolute -top-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-accent-light/30 rounded-full blur-3xl"></div>
-                
-                {/* Main image */}
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-accent/20 rounded-full blur-3xl" />
+                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-accent-light/30 rounded-full blur-3xl" />
+
                 <div className="relative rounded-[24px] overflow-hidden border-4 border-background shadow-2xl aspect-[4/5]">
                   <ImageWithFallback
-                    src="assets/profile_pic.jpg"
+                    src="assets/small_pic.jpg"
                     alt="Prathik Venkatesh"
                     className="w-full h-full object-cover"
                   />
-                  
-                  {/* Overlay badge */}
+
                   <div className="absolute bottom-6 left-6 right-6 bg-background/95 backdrop-blur-sm rounded-[12px] p-4 border border-border">
                     <p className="text-caption">
-                      <span className="text-primary font-medium">2 years</span> crafting digital products
+                      <span className="text-primary font-medium">2+ years</span> designing
+                      real-world digital products for government, brands &amp; small teams
                     </p>
                   </div>
                 </div>
@@ -135,8 +127,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
       {/* Featured Projects - Bento Grid Layout */}
       <section ref={projectsRef} className="section-padding bg-secondary/30">
         <div className="max-content-width px-6 md:px-8 lg:px-12">
-          {/* Section Header with Number */}
-          <motion.div 
+          {/* Section Header */}
+          <motion.div
             className="mb-12 flex items-start gap-6"
             initial={{ opacity: 0, y: 20 }}
             animate={projectsInView ? { opacity: 1, y: 0 } : {}}
@@ -145,55 +137,60 @@ export function HomePage({ onNavigate }: HomePageProps) {
             <span className="text-[80px] font-bold text-primary/20 leading-none">01</span>
             <div className="pt-3">
               <h2 className="mb-2">Selected work</h2>
-              <p className="text-lead text-muted-foreground">Projects that made an impact</p>
+              <p className="text-lead text-muted-foreground">A few quests where the UX had to level up</p>
             </div>
           </motion.div>
-          
-          {/* Bento Grid - Asymmetric Layout */}
+
+          {/* Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
             {/* First Project - Large Feature */}
-            <motion.div
-              className="lg:col-span-2 lg:row-span-2"
-              initial={{ opacity: 0, y: 30 }}
-              animate={projectsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.1 }}
-            >
-              <div
-                onClick={() => onNavigate('case-study', projectsWithImages[0].id)}
-                className="group cursor-pointer bg-card rounded-[20px] overflow-hidden border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full"
+            {projectsWithImages[0] && (
+              <motion.div
+                className="lg:col-span-2 lg:row-span-2"
+                initial={{ opacity: 0, y: 30 }}
+                animate={projectsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.1 }}
               >
-                <div className="aspect-[16/10] overflow-hidden bg-secondary relative">
-                  <ImageWithFallback
-                    src={projectsWithImages[0].coverImage || ''}
-                    alt={projectsWithImages[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-[8px] text-caption font-medium">
-                    Featured
+                <div
+                  onClick={() => onNavigate('case-study', projectsWithImages[0].id)}
+                  className="group cursor-pointer bg-card rounded-[20px] overflow-hidden border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="aspect-[16/10] overflow-hidden bg-secondary relative">
+                    <ImageWithFallback
+                      src={projectsWithImages[0].coverImage || ''}
+                      alt={projectsWithImages[0].title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-[8px] text-caption font-medium">
+                      Featured
+                    </div>
                   </div>
-                </div>
-                <div className="p-8">
-                  <div className="flex items-start justify-between gap-4 mb-3">
-                    <h3 className="group-hover:text-primary transition-colors">
-                      {projectsWithImages[0].title}
-                    </h3>
-                    <span className="text-caption text-muted-foreground whitespace-nowrap">
-                      {projectsWithImages[0].year}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground mb-4">{projectsWithImages[0].impact}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {projectsWithImages[0].tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1 bg-primary/10 text-primary rounded-[8px] text-caption border border-primary/20">
-                        {tag}
+                  <div className="p-8">
+                    <div className="flex items-start justify-between gap-4 mb-3">
+                      <h3 className="group-hover:text-primary transition-colors">
+                        {projectsWithImages[0].title}
+                      </h3>
+                      <span className="text-caption text-muted-foreground whitespace-nowrap">
+                        {projectsWithImages[0].year}
                       </span>
-                    ))}
+                    </div>
+                    <p className="text-muted-foreground mb-4">{projectsWithImages[0].impact}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {projectsWithImages[0].tags.map((tag: string) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1 bg-primary/10 text-primary rounded-[8px] text-caption border border-primary/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
 
-            {/* Second & Third Projects - Stacked */}
+            {/* Second & Third Projects */}
             {projectsWithImages.slice(1, 3).map((project, index) => (
               <motion.div
                 key={project.id}
@@ -201,27 +198,19 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 animate={projectsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
               >
-                <ProjectCard
-                  project={project}
-                  onClick={() => onNavigate('case-study', project.id)}
-                />
+                <ProjectCard project={project} onClick={() => onNavigate('case-study', project.id)} />
               </motion.div>
             ))}
           </div>
 
-          {/* View All Work CTA */}
+          {/* View All CTA */}
           <motion.div
             className="mt-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={projectsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.5 }}
           >
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => onNavigate('work')}
-              className="group"
-            >
+            <Button variant="outline" size="lg" onClick={() => onNavigate('work')} className="group">
               View all projects
               <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
             </Button>
@@ -229,31 +218,31 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* About Section - Creative Layout */}
+      {/* About Section */}
       <section className="section-padding relative overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent-light/10 rounded-full blur-3xl"></div>
-        
-        {/* Floating Illustrations */}
-        <motion.div 
+        {/* Decorative blobs */}
+        <div className="absolute top-20 right-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent-light/10 rounded-full blur-3xl" />
+
+        {/* Floating Peeps */}
+        <motion.div
           className="absolute top-32 right-10 w-20 h-20 opacity-30 hidden lg:block"
           animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Peep85 />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute bottom-40 left-16 w-24 h-24 opacity-20 hidden lg:block"
           animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
         >
           <Peep16 />
         </motion.div>
-        
+
         <div className="max-content-width px-6 md:px-8 lg:px-12 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Number Label */}
+            {/* Number */}
             <motion.div
               className="lg:col-span-1"
               initial={{ opacity: 0, x: -20 }}
@@ -264,8 +253,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <span className="text-[80px] font-bold text-primary/20 leading-none">02</span>
             </motion.div>
 
-            {/* Content */}
-            <motion.div 
+            {/* Text */}
+            <motion.div
               className="lg:col-span-6 space-y-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -277,21 +266,31 @@ export function HomePage({ onNavigate }: HomePageProps) {
                   About me
                 </span>
                 <h2 className="mb-4">
-                  Designer who believes good design is invisible, but its impact isn't.
+                  Designer who quietly obsesses over details so your users don&apos;t have to.
                 </h2>
               </div>
-              
+
               <div className="space-y-4 text-body text-muted-foreground">
                 <p>
-                  Based in Bangalore, I'm passionate about creating digital experiences that just <em>work</em>. No unnecessary complexity, no confusing flows—just clear, thoughtful design.
+                  Based in Bangalore, I design digital experiences that just <em>work</em>. Fewer
+                  clicks, clearer copy, and flows that don&apos;t need a tutorial video or a cousin
+                  to explain them.
                 </p>
                 <p>
-                  Currently designing at <span className="text-foreground font-medium">Centre for e-Governance</span>, making government services more accessible to <span className="text-primary font-medium">millions of citizens</span>—including elderly users, people with disabilities, and first-time internet users.
+                  Right now I work at the{' '}
+                  <span className="text-foreground font-medium">Centre for e-Governance</span>,
+                  helping citizens—including elderly users, people with disabilities, and first-time
+                  internet users—actually complete important tasks online instead of giving up
+                  halfway.
+                </p>
+                <p>
+                  Offline I&apos;m quiet in the first meeting. Once we start looking at screens, I
+                  turn into your product&apos;s most honest critic—shaped by years of strategy games
+                  and anime arcs where every bad decision has consequences.
                 </p>
               </div>
 
-              {/* User Diversity Visual */}
-              <motion.div 
+              <motion.div
                 className="flex items-center gap-3 pt-4"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -326,17 +325,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 </div>
               </div>
 
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => onNavigate('about')}
-                className="mt-6"
-              >
+              <Button variant="outline" size="lg" onClick={() => onNavigate('about')} className="mt-6">
                 More about me →
               </Button>
             </motion.div>
 
-            {/* Skills Grid */}
+            {/* Skills */}
             <motion.div
               className="lg:col-span-5 space-y-4"
               initial={{ opacity: 0, x: 20 }}
@@ -347,19 +341,21 @@ export function HomePage({ onNavigate }: HomePageProps) {
               <div className="bg-gradient-to-br from-accent/10 to-accent-light/10 rounded-[20px] p-6 border border-accent/20">
                 <h4 className="text-primary mb-4">What I do best</h4>
                 <div className="space-y-3">
-                  {['UX/UI Design', 'Design Systems', 'User Research', 'Prototyping', 'Visual Design', 'Accessibility'].map((skill, i) => (
-                    <motion.div
-                      key={skill}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: 10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                    >
-                      <div className="w-2 h-2 rounded-full bg-primary"></div>
-                      <span className="text-body">{skill}</span>
-                    </motion.div>
-                  ))}
+                  {['UX/UI Design', 'Design Systems', 'User Research', 'Prototyping', 'Visual Design', 'Accessibility'].map(
+                    (skill, i) => (
+                      <motion.div
+                        key={skill}
+                        className="flex items-center gap-3"
+                        initial={{ opacity: 0, x: 10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 + i * 0.05 }}
+                      >
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <span className="text-body">{skill}</span>
+                      </motion.div>
+                    ),
+                  )}
                 </div>
               </div>
 
@@ -379,37 +375,42 @@ export function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding relative overflow-hidden" style={{ 
-        background: 'linear-gradient(135deg, #7C5CFF 0%, #5A3FB0 50%, #5A3FB0 100%)'
-      }}>
+      <section
+        className="section-padding relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #7C5CFF 0%, #5A3FB0 50%, #5A3FB0 100%)',
+        }}
+      >
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl" style={{ background: '#BDAAFF' }}></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl" />
+          <div
+            className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl"
+            style={{ background: '#BDAAFF' }}
+          />
         </div>
 
-        {/* Floating Character Illustrations */}
-        <motion.div 
+        <motion.div
           className="absolute top-20 left-10 w-24 h-24 opacity-20 hidden xl:block"
           animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
         >
           <Peep34 />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute bottom-20 right-16 w-28 h-28 opacity-15 hidden xl:block"
           animate={{ y: [0, 10, 0], rotate: [0, -5, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
         >
           <Peep16 />
         </motion.div>
-        <motion.div 
+        <motion.div
           className="absolute top-1/2 right-32 w-20 h-20 opacity-10 hidden xl:block"
           animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
         >
           <Peep85 />
         </motion.div>
-        
+
         <div className="max-content-width px-6 md:px-8 lg:px-12 relative">
           <motion.div
             className="text-center max-w-3xl mx-auto space-y-8"
@@ -419,10 +420,12 @@ export function HomePage({ onNavigate }: HomePageProps) {
             transition={{ duration: 0.5 }}
           >
             <h2 style={{ color: '#FFFFFF' }}>
-              Let's create something amazing together.
+              Let&apos;s make your product feel less like paperwork and more like a story worth
+              finishing.
             </h2>
             <p className="text-lead" style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
-              Always excited to collaborate on projects that make a difference. Currently open to freelance work and full-time opportunities.
+              I&apos;m interested in products that actually ship, learn from users, and improve over
+              time—whether it&apos;s a public service portal or a small tool with big ambition.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
@@ -438,9 +441,9 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 variant="outline"
                 onClick={() => onNavigate('resume')}
                 className="hover:bg-white/10"
-                style={{ 
+                style={{
                   borderColor: '#FFFFFF',
-                  color: '#000000'
+                  color: '#000000',
                 }}
               >
                 View resume
@@ -450,6 +453,5 @@ export function HomePage({ onNavigate }: HomePageProps) {
         </div>
       </section>
     </div>
-    </>
   );
 }
