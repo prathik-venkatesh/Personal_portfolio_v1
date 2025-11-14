@@ -2,45 +2,32 @@ import { Project } from '../components/ProjectCard';
 
 export const projects: Project[] = [
   {
-    id: 'ceg',
-    title: 'Centre for e-Governance (CEG)',
-    year: 'August 2024 - Present',
-    role: 'Web Design, UX',
-    impact: 'Modern, accessible templates for government services.',
-    tags: ['Web', 'Accessibility', 'Public'],
+    id: 'btp',
+    title: 'Bengaluru Traffic Police – Website Concept',
+    year: '2024–2025',
+    role: 'Product & UX Design',
+    impact:
+      'Reframed dense enforcement flows into a calmer, citizen-first experience for traffic, challans, and safety.',
+    tags: ['Public sector', 'Web', 'UX/UI'],
   },
   {
-    id: 'jds-grocery',
-    title: 'JDS Grocery App',
+    id: 'process',
+    title: 'How I Design Products',
     year: '2024',
-    role: 'UI/UX',
-    impact: 'Faster browsing, fewer taps to checkout.',
-    tags: ['Mobile', 'E-commerce'],
+    role: 'End-to-end UX Process',
+    impact:
+      'A repeatable way to move from messy problem, conflicting opinions, and screenshots to shippable flows.',
+    tags: ['Process', 'UX', 'Strategy'],
   },
   {
-    id: 'jds-realestate',
-    title: 'JDS Real-Estate Platform',
+    id: 'figma',
+    title: 'Figma Design System – Components & Tokens',
     year: '2024',
-    role: 'UI/UX',
-    impact: 'Simplified property search & compare experience.',
-    tags: ['Web', 'Search'],
-  },
-  {
-    id: 'creodo',
-    title: 'Creodo Instagram Campaigns',
-    year: '2024',
-    role: 'Graphic Design',
-    impact: 'Consistent grid boosted engagement.',
-    tags: ['Brand', 'Content'],
-  },
-  {
-    id: 'video-edits',
-    title: 'Video Edits / Reels',
-    year: '2023–2024',
-    role: 'Video Editor',
-    impact: 'Hook-first edits improved retention.',
-    tags: ['Motion', 'Editing'],
+    role: 'Design Systems',
+    impact:
+      'Systematised UI with tokens, components, and grids so new screens feel consistent instead of reinvented.',
+    tags: ['Figma', 'Design system'],
   },
 ];
 
-export const featuredProjects = projects.slice(0, 3);
+export const featuredProjects = projects;

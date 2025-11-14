@@ -64,10 +64,10 @@ export function AboutPage() {
           >
             <h1>Prathik Venkatesh</h1>
             <h3 className="text-muted-foreground">
-              Visual / Product Designer passionate about clarity and usability.
+              Designer blending gov‑tech clarity, gamer focus, and anime‑protagonist energy.
             </h3>
             <p className="text-lg leading-relaxed">
-              I’m Prathik — a visual and product designer focused on creating accessible, clean, and effective experiences. With a BVA in Applied Arts and hands-on UI/UX experience, I bridge research, visual design, and delivery. I’ve designed for government services, e-commerce platforms, and social media brands.
+              I’m Prathik — a visual & product designer who tries to bring order to government‑style chaos using gamer‑level focus and anime‑hero optimism. I design interfaces that feel predictable, calm, and actually finishable by real people. With experience across government services, e‑commerce, and social media, I bridge research, visual design, and practical delivery without overcomplicating things.
             </p>
           </motion.div>
           
@@ -79,7 +79,7 @@ export function AboutPage() {
           >
             <div className="w-64 h-64 rounded-2xl overflow-hidden border border-border shadow-lg">
               <ImageWithFallback
-                src="assets/small_pic.jpg"
+                src="assets/profile_pic.jpg"
                 alt="Prathik Venkatesh"
                 className="w-full h-full object-cover"
               />

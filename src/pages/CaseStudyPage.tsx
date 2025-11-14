@@ -1,282 +1,508 @@
 import { ArrowLeft, ExternalLink } from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import { BadgeChip } from '../components/BadgeChip';
 import { projects } from '../data/projects';
 
 interface CaseStudyPageProps {
   projectId: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (page: string, projectId?: string) => void;
 }
 
-const projectImages: { [key: string]: string } = {
-  'ceg': 'https://images.unsplash.com/photo-1742813615188-7ea3c64fb880?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb3Zlcm5tZW50JTIwZGlnaXRhbCUyMHNlcnZpY2V8ZW58MXx8fHwxNzYwMjk4MjY1fDA&ixlib=rb-4.1.0&q=80&w=1080',
-  'jds-grocery': 'https://images.unsplash.com/photo-1703007739223-3e87d56e03e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncm9jZXJ5JTIwc2hvcHBpbmclMjBtb2JpbGV8ZW58MXx8fHwxNzYwMzQ5ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-  'jds-realestate': 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWFsJTIwZXN0YXRlJTIwcHJvcGVydHl8ZW58MXx8fHwxNzYwMjkyNDYzfDA&ixlib=rb-4.1.0&q=80&w=1080',
-  'creodo': 'https://images.unsplash.com/photo-1661187259792-d0e16bf86d31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnN0YWdyYW0lMjBzb2NpYWwlMjBtZWRpYXxlbnwxfHx8fDE3NjAzMjQ1MTN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  'video-edits': 'https://images.unsplash.com/photo-1749410342681-3510f9edb7ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWRlbyUyMGVkaXRpbmclMjBjcmVhdGl2ZXxlbnwxfHx8fDE3NjAzNDk4NjF8MA&ixlib=rb-4.1.0&q=80&w=1080',
-};
-
-const caseStudyData: { [key: string]: any } = {
-  'ceg': {
-    context: 'Centre for e-Governance needed modern, accessible web templates for state government services to improve citizen experience and digital inclusion.',
-    problem: 'How might we create government web templates that are accessible to all citizens, easy to navigate, and maintain consistency across multiple departments?',
-    goals: [
-      'Meet WCAG 2.1 AA accessibility standards',
-      'Reduce citizen support calls by 30%',
-      'Create reusable components for 50+ departments',
+// Simple data layout for non-BTP case studies
+const caseStudyData: any = {
+  process: {
+    label: 'Process · How I work',
+    heroSummary:
+      'A look into how I move from messy problem statements and half-broken flows to a clean, testable product experience.',
+    sections: [
+      {
+        title: 'Starting from the mess',
+        body:
+          'Most projects do not start with a perfect brief. They start with screenshots, complaints, and “can we make this better?”. I begin by clarifying constraints: who is affected, what is non-negotiable, and where failure is currently happening. This usually happens through short stakeholder chats and reviewing real user journeys.',
+      },
+      {
+        title: 'Mapping reality, not just ideal flows',
+        body:
+          'Instead of jumping straight into pretty screens, I map the actual path users are taking today — including detours like WhatsApp, calls, or workarounds. This highlights which steps are unnecessary, which information is missing at the wrong time, and where the UI is forcing people to guess.',
+      },
+      {
+        title: 'Exploring options, then committing',
+        body:
+          'I sketch multiple options for key screens and flows, usually balancing “safe but boring” with “slightly adventurous but still accessible”. Once we align on direction, I commit to one approach and push it through the entire journey so we have a coherent story instead of a collection of nice isolated screens.',
+      },
+      {
+        title: 'Polishing details that actually matter',
+        body:
+          'Microcopy, error states, and hierarchies are tuned based on what users are likely thinking during each step. I try to remove cleverness where it adds friction and keep personality where it adds clarity. The final output often includes a clickable prototype plus annotated flows so devs are not forced to guess intent.',
+      },
     ],
-    insights: [
-      'Citizens struggled with complex navigation and jargon',
-      'Mobile traffic accounted for 65% of visits',
-      'Seniors needed larger text and clearer CTAs',
-    ],
-    rationale: [
-      'IA: Flat hierarchy with clear categories and search',
-      'Interaction: High-contrast buttons, skip-to-content links',
-      'Visual: Clean sans-serif, ample whitespace, consistent patterns',
-    ],
-    impact: 'Templates deployed across 25 departments. Early metrics show 28% reduction in support queries and 4.2/5 user satisfaction.',
-    nextSteps: 'Phase 2: Multi-language support, voice navigation, and citizen feedback portal.',
   },
-  'jds-grocery': {
-    context: 'JDS wanted to launch a grocery app to compete in the crowded online grocery market with a focus on speed and simplicity.',
-    problem: 'How might we reduce the number of taps from landing to checkout while maintaining product discovery and personalization?',
-    goals: [
-      'Reduce checkout flow to under 5 taps',
-      'Increase add-to-cart rate by 25%',
-      'Improve repeat purchase rate',
+  figma: {
+    label: 'Figma · Design system',
+    heroSummary:
+      'A modular Figma file that combines tokens, components, and example screens so teams can ship consistent UI without restarting from a blank frame every time.',
+    sections: [
+      {
+        title: 'Why this system exists',
+        body:
+          'Most small teams do not need a gigantic enterprise design system. They need a compact, opinionated set of components that still respect accessibility and responsive behavior. This file is built to be dropped into real projects, not just as a Dribbble showpiece.',
+      },
+      {
+        title: 'What lives inside the file',
+        body:
+          'The system includes color and type tokens, grid and spacing scales, buttons, inputs, cards, navigation patterns, and a small set of layout templates. Each component is built with variants and auto layout so designers and devs can quickly explore states.',
+      },
+      {
+        title: 'How I work in Figma',
+        body:
+          'I keep pages structured as: Foundations, Components, Patterns, Explorations, and Delivery. This keeps experimental work from leaking into production, while still making it easy to trace how a final screen came to life.',
+      },
+      {
+        title: 'Where this goes next',
+        body:
+          'The next step is to integrate a formal token pipeline and handoff notes so dev teams can mirror Figma tokens in code more reliably, and keep UI drift under control as products evolve.',
+      },
     ],
-    insights: [
-      'Users abandoned carts when the process felt too long',
-      'Quick reorder of favorites was highly requested',
-      'Visual product cards drove higher engagement',
-    ],
-    rationale: [
-      'IA: Quick access to favorites, category shortcuts on home',
-      'Interaction: One-tap add, persistent cart widget',
-      'Visual: Large product images, color-coded categories',
-    ],
-    impact: 'Beta testing showed 32% faster checkout times and 21% higher add-to-cart rate compared to competitors.',
-    nextSteps: 'Add recipe suggestions, smart reordering based on purchase history, and loyalty rewards.',
-  },
-  'jds-realestate': {
-    context: 'JDS Real Estate platform needed a streamlined property search and comparison experience for home buyers and renters.',
-    problem: 'How might we simplify property search and comparison to help users make informed decisions quickly?',
-    goals: [
-      'Reduce time-to-decision by 40%',
-      'Enable side-by-side comparison of up to 4 properties',
-      'Increase contact-agent conversion by 30%',
-    ],
-    insights: [
-      'Users wanted to compare properties by location, price, and amenities',
-      'High-quality images and virtual tours were essential',
-      'Mobile users needed simplified filters',
-    ],
-    rationale: [
-      'IA: Advanced filters with saved searches',
-      'Interaction: Comparison table with key metrics',
-      'Visual: Large hero images, map integration',
-    ],
-    impact: 'Users spent 35% less time finding their ideal property. Contact conversion increased by 28%.',
-    nextSteps: 'Add mortgage calculator, neighborhood insights, and AR property tours.',
-  },
-  'creodo': {
-    context: 'Creodo needed consistent, on-brand Instagram campaigns to boost engagement and follower growth.',
-    problem: 'How might we create a cohesive visual system that maintains brand identity across diverse content types?',
-    goals: [
-      'Increase engagement rate by 20%',
-      'Grow followers by 500/month',
-      'Establish recognizable brand aesthetic',
-    ],
-    insights: [
-      'Consistent color palette drove recognition',
-      'Carousel posts had 2x engagement',
-      'Educational content outperformed promotional',
-    ],
-    rationale: [
-      'Visual system: Branded color palette, consistent typography',
-      'Content strategy: Mix of education, inspiration, and behind-the-scenes',
-      'Grid layout: Alternating post types for visual rhythm',
-    ],
-    impact: 'Engagement rate increased 24%. Follower growth exceeded target at 650/month average.',
-    nextSteps: 'Expand to Reels, launch user-generated content campaign, and collaborate with micro-influencers.',
-  },
-  'video-edits': {
-    context: 'Freelance video editing projects for various clients including social media creators and small businesses.',
-    problem: 'How might we create scroll-stopping video content that hooks viewers in the first 3 seconds?',
-    goals: [
-      'Increase watch time to 80%+',
-      'Improve client ROI on video content',
-      'Develop repeatable editing workflows',
-    ],
-    insights: [
-      'Hook in first 3 seconds was critical',
-      'Jump cuts kept energy high',
-      'On-screen text improved retention',
-    ],
-    rationale: [
-      'Pacing: Fast cuts, dynamic transitions',
-      'Audio: Layered sound design with music',
-      'Graphics: Animated text, lower thirds',
-    ],
-    impact: 'Average watch time improved from 45% to 78%. Clients reported 2-3x higher engagement rates.',
-    nextSteps: 'Develop video templates, offer video strategy consulting, and expand into motion graphics.',
   },
 };
 
-export function CaseStudyPage({ projectId, onNavigate }: CaseStudyPageProps) {
-  const project = projects.find(p => p.id === projectId);
-  const caseStudy = caseStudyData[projectId];
+// ---------------- BENGALURU TRAFFIC POLICE – REAL PROJECT LAYOUT ----------------
 
-  if (!project || !caseStudy) {
-    return (
-      <div className="min-h-screen pt-32 md:pt-36 lg:pt-40 pb-16 md:pb-24 lg:pb-32">
-        <div className="max-content-width px-6 md:px-8 lg:px-12 text-center">
-          <h2 className="mb-4">Project not found</h2>
-          <Button onClick={() => onNavigate('work')}>
-            <ArrowLeft className="mr-2" size={20} />
-            Back to Work
-          </Button>
-        </div>
-      </div>
-    );
-  }
+function BtpCaseStudyLayout({
+  onNavigate,
+}: {
+  onNavigate: (page: string, projectId?: string) => void;
+}) {
+  const project = projects.find((p) => p.id === 'btp') ?? projects[0];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Image */}
-      <div className="w-full h-[50vh] md:h-[55vh] lg:h-[60vh] relative">
-        <ImageWithFallback
-          src={projectImages[projectId]}
-          alt={project.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+    <div id="top" className="min-h-screen bg-background text-foreground pt-24 pb-16">
+      {/* Back */}
+      <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 mb-4">
+        <button
+          onClick={() => onNavigate('work')}
+          className="text-xs text-muted-foreground inline-flex items-center gap-2 hover:text-foreground"
+        >
+          <ArrowLeft className="h-3 w-3" />
+          Back to work
+        </button>
       </div>
 
-      <div className="max-content-width px-6 md:px-8 lg:px-12 py-10 md:py-12 lg:py-16">
-        {/* Back Button */}
-        <Button
-          variant="ghost"
-          onClick={() => onNavigate('work')}
-          className="mb-8 md:mb-10"
-        >
-          <ArrowLeft className="mr-2" size={20} />
-          Back to Work
-        </Button>
+      {/* HERO – TEXT ONLY, NO BIG CARD */}
+      <section className="bg-gradient-to-b from-[#071b3d] to-[#020617] text-white">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-16">
+          <div className="space-y-5 max-w-3xl">
+            <p className="text-xs md:text-[11px] uppercase tracking-[0.25em] text-blue-200/80">
+              Live public project · Bengaluru Traffic Police
+            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight">
+              Redesigning Bengaluru&apos;s official traffic police website for
+              real citizens, not just systems.
+            </h1>
+            <p className="text-sm md:text-[15px] text-blue-100/90 max-w-xl">
+              In 2024, Bengaluru Traffic Police launched a new public website
+              (btp.karnataka.gov.in) designed and developed with the Centre for
+              e-Governance. The new experience replaces an older, fragmented
+              site with cleaner navigation, clearer language and tools that
+              make it easier to see traffic, pay or dispute challans, and stay
+              updated on road safety.
+            </p>
 
-        {/* Project Summary */}
-        <div className="mb-12 md:mb-16 lg:mb-20 pb-10 md:pb-12 lg:pb-16 border-b border-border">
-          <h1 className="mb-6 md:mb-8">{project.title}</h1>
-          
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8 mb-6">
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Year</div>
-              <div>{project.year}</div>
+            {/* Meta from project data */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs md:text-[13px]">
+              <div>
+                <p className="uppercase tracking-[0.18em] text-blue-200/80 text-[10px] mb-1">
+                  Project
+                </p>
+                <p className="font-medium">{project.title}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-blue-200/80 text-[10px] mb-1">
+                  Year
+                </p>
+                <p className="font-medium">{project.year}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-blue-200/80 text-[10px] mb-1">
+                  Role
+                </p>
+                <p className="font-medium">{project.role}</p>
+              </div>
+              <div>
+                <p className="uppercase tracking-[0.18em] text-blue-200/80 text-[10px] mb-1">
+                  Focus
+                </p>
+                <p className="font-medium">{project.tags.join(', ')}</p>
+              </div>
             </div>
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Role</div>
-              <div>{project.role}</div>
-            </div>
-            <div className="md:col-span-2">
-              <div className="text-sm text-muted-foreground mb-1">Impact</div>
-              <div>{project.impact}</div>
-            </div>
-          </div>
 
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map(tag => (
-              <BadgeChip key={tag} label={tag} />
-            ))}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <a
+                href="https://btp.karnataka.gov.in/en"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-white text-slate-900 text-sm font-medium shadow-md shadow-black/20"
+              >
+                View live website
+              </a>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('btp-overview');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-white/40 text-sm font-medium"
+              >
+                Jump to overview ↓
+              </button>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Case Study Content */}
-        <div className="max-w-3xl mx-auto space-y-12 md:space-y-16">
-          {/* Context */}
-          <section>
-            <h2 className="mb-4">Context</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {caseStudy.context}
-            </p>
-          </section>
-
-          {/* Problem */}
-          <section>
-            <h2 className="mb-4">Problem Statement</h2>
-            <div className="p-6 bg-secondary/50 border-l-4 border-primary rounded-r-lg">
-              <p className="text-lg italic">
-                "{caseStudy.problem}"
+      {/* PROJECT OVERVIEW */}
+      <section id="btp-overview" className="bg-muted/40">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-14">
+          <div className="grid gap-10 lg:grid-cols-[1.5fr,1.1fr] lg:items-start">
+            <div className="space-y-4 text-sm md:text-[15px] text-muted-foreground">
+              <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                Project overview
+              </p>
+              <h2 className="text-lg md:text-2xl font-semibold text-foreground">
+                Bengaluru&apos;s roads are chaotic. The website now doesn&apos;t have to be.
+              </h2>
+              <p>
+                The earlier BTP website had grown over time: new links, new
+                PDFs and new portals layered on top of each other. Citizens had
+                to guess where to start for basics like checking a challan,
+                understanding a rule or seeing diversions.
+              </p>
+              <p>
+                The new public site brings this into a single, structured
+                experience with three clear pillars that mirror how BTP actually
+                works day to day: Traffic Management, Enforcement and Road
+                Safety. From there, people can report violations, register
+                complaints and suggestions, pay and dispute challans, and browse
+                alerts without jumping between random domains.
+              </p>
+              <p>
+                My role on this project was to work with the traffic police
+                leadership and the Centre for e-Governance dev team to
+                restructure the information architecture, design responsive
+                layouts and craft UI that feels official, but not intimidating.
               </p>
             </div>
-          </section>
 
-          {/* Goals */}
-          <section>
-            <h2 className="mb-4">Goals & Metrics</h2>
-            <ul className="space-y-3">
-              {caseStudy.goals.map((goal: string, index: number) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    {index + 1}
-                  </span>
-                  <span className="text-lg">{goal}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          {/* Insights */}
-          <section>
-            <h2 className="mb-4">Users & Insights</h2>
-            <div className="grid grid-cols-1 gap-4">
-              {caseStudy.insights.map((insight: string, index: number) => (
-                <div key={index} className="p-4 bg-card border border-border rounded-lg">
-                  <p>{insight}</p>
-                </div>
-              ))}
+            {/* Big image slot 02 – navigation / IA */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[4/3] w-full flex items-center justify-center text-sm md:text-[15px] text-muted-foreground text-center px-6">
+                Image 02 – Navigation showing Traffic Management, Enforcement &amp; Road Safety
+              </div>
             </div>
-          </section>
-
-          {/* Design Rationale */}
-          <section>
-            <h2 className="mb-4">Design Rationale</h2>
-            <div className="space-y-4">
-              {caseStudy.rationale.map((item: string, index: number) => (
-                <div key={index} className="flex gap-4">
-                  <div className="w-1 bg-primary rounded-full flex-shrink-0"></div>
-                  <p className="text-lg">{item}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Impact */}
-          <section>
-            <h2 className="mb-4">Impact</h2>
-            <div className="p-6 bg-primary/5 border border-primary/20 rounded-lg">
-              <p className="text-lg">{caseStudy.impact}</p>
-            </div>
-          </section>
-
-          {/* Next Steps */}
-          <section className="pb-12 md:pb-16">
-            <h2 className="mb-4">Next Steps</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {caseStudy.nextSteps}
-            </p>
-          </section>
+          </div>
         </div>
+      </section>
 
-        {/* Navigation */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 pt-10 md:pt-12 border-t border-border">
-          <Button onClick={() => onNavigate('work')}>
-            View All Projects
-          </Button>
-          <Button variant="outline" onClick={() => onNavigate('contact')}>
-            Get in Touch
-          </Button>
+      {/* WHAT CHANGED ON THE NEW SITE */}
+      <section className="bg-background">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-14">
+          <div className="grid gap-10 lg:grid-cols-[1.4fr,1.1fr] lg:items-start">
+            <div className="space-y-4 text-sm md:text-[15px] text-muted-foreground">
+              <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                What changed
+              </p>
+              <h2 className="text-lg md:text-2xl font-semibold text-foreground">
+                From scattered links to one trustworthy entry point.
+              </h2>
+              <p>
+                The public launch of the new website focused on a few key
+                experience changes that matter in daily life, not just on paper:
+              </p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>
+                  <span className="font-medium">One clear home for services.</span>{' '}
+                  Traffic information, challans, complaints and safety content
+                  now sit under a single, consistent design system instead of
+                  multiple disconnected portals.
+                </li>
+                <li>
+                  <span className="font-medium">Smarter traffic tools.</span>{' '}
+                  A data-backed traffic situation map and &quot;Navigate
+                  Bengaluru&quot; help citizens see congestion, closures and
+                  diversions, then choose better routes.
+                </li>
+                <li>
+                  <span className="font-medium">Simpler challan flows.</span>{' '}
+                  People can check, understand and pay traffic challans through
+                  a cleaner, step-wise flow that connects to the state
+                  e-challan system without forcing them to decode tables.
+                </li>
+                <li>
+                  <span className="font-medium">Timely alerts and news.</span>{' '}
+                  Dedicated space for traffic updates, campaigns and road
+                  safety initiatives makes it easier to keep up with changes in
+                  the city.
+                </li>
+              </ul>
+            </div>
+
+            {/* Big image slot 03 – traffic situation / Navigate Bengaluru */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[16/10] w-full flex items-center justify-center text-sm md:text-[15px] text-muted-foreground text-center px-6">
+                Image 03 – Traffic situation map &amp; Navigate Bengaluru view
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DESIGN APPROACH & PRINCIPLES */}
+      <section className="bg-muted/40">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-14">
+          <div className="grid gap-10 lg:grid-cols-[1.4fr,1.1fr] lg:items-start">
+            <div className="space-y-4 text-sm md:text-[15px] text-muted-foreground">
+              <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+                Design approach
+              </p>
+              <h2 className="text-lg md:text-2xl font-semibold text-foreground">
+                Government UI that feels official, not overwhelming.
+              </h2>
+              <p>
+                This project was less about inventing something flashy and more
+                about making a real, day-to-day tool feel trustworthy. The
+                design language leans on Karnataka Police branding, but softens
+                the experience with better spacing, clearer hierarchy and fewer
+                decision points on each screen.
+              </p>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>
+                  <span className="font-medium">Structure before paint.</span>{' '}
+                  Information architecture came first: grouping content under
+                  the same pillars BTP uses internally, then simplifying labels
+                  into everyday language.
+                </li>
+                <li>
+                  <span className="font-medium">Desktop &amp; mobile together.</span>{' '}
+                  Layouts were designed to work on low-end phones and large
+                  screens without splitting the experience into two separate
+                  designs.
+                </li>
+                <li>
+                  <span className="font-medium">Calm, readable typography.</span>{' '}
+                  Long legal text and safety content are set in a type scale
+                  that is comfortable to scan instead of feeling like a wall of
+                  policy.
+                </li>
+              </ul>
+            </div>
+
+            {/* Big image slot 04 – desktop + mobile pair */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[9/16] md:aspect-[16/10] w-full flex items-center justify-center text-sm md:text-[15px] text-muted-foreground text-center px-6">
+                Image 04 – Desktop &amp; mobile layouts side by side
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SCREEN GALLERY – extra image space for you to fill */}
+      <section className="bg-background">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-14">
+          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            Screens
+          </p>
+          <h2 className="text-lg md:text-2xl font-semibold text-foreground mt-2 mb-6">
+            Key screens from the live website.
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Image slot 05 */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[16/10] w-full flex items-center justify-center text-sm md:text-[15px] text-muted-foreground text-center px-6">
+                Image 05 – Challan search &amp; payment flow
+              </div>
+            </div>
+            {/* Image slot 06 */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[16/10] w-full flex items-center justify-center text-sm md:text-[15px] text-muted-foreground text-center px-6">
+                Image 06 – Complaints, suggestions &amp; violation reporting
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-3">
+            {/* Image slot 07 */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[4/3] w-full flex items-center justify-center text-xs md:text-[13px] text-muted-foreground text-center px-4">
+                Image 07 – Road safety campaigns / educational content
+              </div>
+            </div>
+            {/* Image slot 08 */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[4/3] w-full flex items-center justify-center text-xs md:text-[13px] text-muted-foreground text-center px-4">
+                Image 08 – Alerts &amp; news listing
+              </div>
+            </div>
+            {/* Image slot 09 */}
+            <div className="rounded-[24px] bg-card border border-border overflow-hidden">
+              <div className="aspect-[4/3] w-full flex items-center justify-center text-xs md:text-[13px] text-muted-foreground text-center px-4">
+                Image 09 – Mobile menu &amp; key quick actions
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OUTCOMES & REFLECTIONS */}
+      <section className="bg-muted/40">
+        <div className="max-content-width mx-auto px-6 md:px-8 lg:px-12 py-12 md:py-14">
+          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            Outcomes
+          </p>
+          <h2 className="text-lg md:text-2xl font-semibold text-foreground mt-2">
+            What the new website unlocks.
+          </h2>
+
+          <div className="mt-6 space-y-4 text-sm md:text-[15px] text-muted-foreground max-w-3xl">
+            <p>
+              With the new website, Bengaluru Traffic Police now has a single
+              public-facing home for traffic information, fines and safety
+              updates. Citizens no longer have to guess which portal is official
+              when an SMS about a challan or diversion arrives, and officers can
+              point people to one URL instead of a collection of links.
+            </p>
+            <p>
+              The design choices here are deliberately simple: fewer surprises,
+              more predictable patterns and a layout that respects how stressful
+              traffic-related tasks can already feel. The goal was not to turn a
+              government service into a startup landing page, but to make
+              something that feels steady, modern and usable for years.
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 text-xs md:text-[13px] text-muted-foreground">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="underline underline-offset-4"
+            >
+              Back to top ↑
+            </button>
+            <div className="flex flex-wrap items-center gap-3">
+              <span>Bengaluru · Live public project · 2024</span>
+              <span className="hidden sm:inline text-border">|</span>
+              <a
+                href="https://btp.karnataka.gov.in/en"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                Visit btp.karnataka.gov.in
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// ---------------- MAIN CASE STUDY SWITCHER ----------------
+
+export function CaseStudyPage({ projectId, onNavigate }: CaseStudyPageProps) {
+  // Special-case BTP: full custom layout
+  if (projectId === 'btp') {
+    return <BtpCaseStudyLayout onNavigate={onNavigate} />;
+  }
+
+  // Fallback: generic layout for other case studies
+  const project = projects.find((p) => p.id === projectId) ?? projects[0];
+  const details = caseStudyData[projectId] ?? caseStudyData['process'];
+
+  return (
+    <div className="min-h-screen pt-28 pb-20">
+      <div className="max-content-width px-6 md:px-8 lg:px-12 max-w-4xl">
+        {/* Back */}
+        <button
+          onClick={() => onNavigate('work')}
+          className="text-xs text-muted-foreground inline-flex items-center gap-2 hover:text-foreground mb-6"
+        >
+          <ArrowLeft className="h-3 w-3" />
+          Back to work
+        </button>
+
+        {/* Hero */}
+        <header className="space-y-3 mb-10">
+          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+            {details.label}
+          </p>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+            {project.title}
+          </h1>
+          <p className="text-sm md:text-[15px] text-muted-foreground max-w-2xl">
+            {details.heroSummary}
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs md:text-[13px] pt-4">
+            <div>
+              <p className="text-muted-foreground uppercase tracking-[0.18em] text-[10px] mb-1">
+                Year
+              </p>
+              <p className="font-medium">{project.year}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground uppercase tracking-[0.18em] text-[10px] mb-1">
+                Role
+              </p>
+              <p className="font-medium">{project.role}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground uppercase tracking-[0.18em] text-[10px] mb-1">
+                Focus
+              </p>
+              <p className="font-medium">{project.tags.join(', ')}</p>
+            </div>
+            <div>
+              <p className="text-muted-foreground uppercase tracking-[0.18em] text-[10px] mb-1">
+                Summary
+              </p>
+              <p className="font-medium">{project.impact}</p>
+            </div>
+          </div>
+        </header>
+
+        {/* Sections */}
+        <div className="space-y-10">
+          {details.sections?.map((section: any) => (
+            <section key={section.title} className="space-y-2">
+              <h2 className="text-lg md:text-xl font-semibold">
+                {section.title}
+              </h2>
+              <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed">
+                {section.body}
+              </p>
+            </section>
+          ))}
+
+          {/* Optional figma link for figma case-study */}
+          {projectId === 'figma' && (
+            <section className="space-y-3">
+              <h2 className="text-lg md:text-xl font-semibold">
+                View the Figma system
+              </h2>
+              <p className="text-sm md:text-[15px] text-muted-foreground">
+                You can explore the live design system, components, and tokens
+                in this Figma file.
+              </p>
+              <a
+                href="https://www.figma.com/design/wtZHXAkuEHHps7fls8JABw/sprinkle_demo_practise?node-id=0-1&t=lXjyaMAhhDFVgaid-1"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
+                Open Figma file
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </section>
+          )}
         </div>
       </div>
     </div>
