@@ -25,7 +25,8 @@ export default function NotFoundPage() {
         {/* Message */}
         <div className="mb-8">
           <h2 className="text-3xl font-semibold text-gray-700 mb-4">
-            Oops! Halaman Tidak Ditemukan
+            Oops! You have disconnected from this world
+            (isekai)
           </h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto leading-relaxed">
             Halaman yang Anda cari mungkin telah dipindahkan, dihapus, atau tidak pernah ada.
